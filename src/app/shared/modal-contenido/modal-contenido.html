@@ -1,0 +1,32 @@
+<div class="modal fade" id="modalContenido" tabindex="-1" aria-labelledby="modalContenidoLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content modal-conoce">
+      
+      <!-- ENCABEZADO-->
+      <div class="modal-header border-0 pb-0">
+        <h2 class="modal-title modal-conoce-titulo w-100 text-center" id="modalContenidoLabel"> {{ opcion?.titulo }} </h2>
+      </div>
+
+      <!--CONTENIDO -->
+      <div class="modal-body px-4 px-md-5 py-4">
+        @if (opcion) {
+          @if (opcion.id === 2) {
+            <ul class="modal-conoce-lista mb-0">
+              @for ( elemento of opcion.contenido; track $index) {
+                <li class="mb-3"> {{ elemento }} </li>
+              }
+            </ul>
+          } @else {
+            <p class="modal-conoce-texto mb-0"> {{ opcion.descripcion }} </p>
+          }
+        }
+      </div>
+
+      <!-- PIE -->
+      <div class="modal-footer border-0 pt-0 px-4 px-md-5 pb-4">
+        <button type="button" class="btn btn-conoce w-100" data-bs-dismiss="modal"> Cerrar </button>
+      </div>
+
+    </div>
+  </div>
+</div>

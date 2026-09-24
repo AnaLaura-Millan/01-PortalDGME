@@ -1,0 +1,39 @@
+<nav class="menu-principal">
+    <!-- BOTÓN MÓVIL -->
+  <button class="boton-menu-movil" type="button" aria-label="Abrir o cerrar menú" [attr.aria-expanded]="menuAbierto" (click)="alternarMenu()">
+    <span class="hamburguesa"> {{ menuAbierto ? '✕' : '☰' }} </span>
+  </button>
+
+  <!-- CONTENEDOR -->
+   <div class="container-fluid px-4 px-lg-5">
+    <div class="menu-container" [ngClass]="{ 'abierto': menuAbierto }">
+      <!--  BLOQUE 1 INICIO + 4 SECCIONES  -->
+      <div class="menu-grupo-principal">
+        <a href="#inicio" class="menu-item inicio" [ngClass]="{ 'activo': menuActivo === 'inicio' }" (click)="activarMenu('inicio')">
+          <span class="icono-inicio">
+            <img src="/assets/images/iconos/dgme.png" alt="">
+          </span>
+          <span> INICIO </span>
+        </a>
+        
+        <!-- SECCIÓN 1 -->
+        <a href="https://chamakes.sep.gob.mx/" target="_blank" class="menu-item"> CHAMAKES </a>
+
+        <!-- SECCIÓN 2 -->
+        <a href="https://sea.sep.gob.mx/#/hom" target="_blank" class="menu-item"> SEA </a>
+
+        <!-- SECCIÓN 3 -->
+        <a href="https://telesecundaria.sep.gob.mx/#/home" target="_blank" class="menu-item"> TELESECUNDARIA </a>
+
+        <!-- SECCIÓN 4 -->
+        <a href="https://educacionmultigrado.sep.gob.mx/" target="_blank" class="menu-item"> MULTIGRADO </a>
+      </div>
+
+      <!-- BLOQUE 2 -->
+      <a  href="https://bdchamakes.sep.gob.mx/dgme.html" target="_blank" class="menu-boton"> LIBROS DE TEXTO GRATUITOS </a>
+
+      <!-- BLOQUE 3-->
+      <a href="#invitaciones" class="menu-boton" [ngClass]="{ 'activo': menuActivo === 'invitaciones' }" (click)="activarMenu('invitaciones')"> INVITACIONES </a>
+    </div>
+   </div>
+</nav>

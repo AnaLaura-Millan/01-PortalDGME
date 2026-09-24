@@ -1,0 +1,234 @@
+.direccion-slider {
+  width: 100%;
+  max-width: 1650px;
+  margin: 0 auto;
+}
+
+.direccion-card {
+  position: relative;
+  width: 100%;
+  min-height: 400px;
+  background: #ffffff;
+  border-radius: 32px;
+  overflow: hidden;
+  box-shadow: 10px 12px 0 rgba(0, 0, 0, 0.08), 0 12px 30px rgba(0, 0, 0, 0.08);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+/* IMAGEN */
+.direccion-imagen {
+  min-height: 400px;
+  background:linear-gradient(145deg, #f1f8e9 0%, #f7fbf3 100%);
+  overflow: hidden;
+  touch-action: pan-y;
+}
+
+.direccion-imagen-contenedor {
+  width: 100%;
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 25px;
+  animation: entradaImagen 0.8s ease;
+}
+
+.direccion-img {
+  width: auto;
+  max-width: 85%;
+  max-height: 350px;
+  object-fit: contain;
+  filter: drop-shadow(8px 10px rgba(0, 0, 0, 0.10));
+  animation: entradaImagen 0.8s ease, brincarImagen 2.5s ease-in-out 0.8s infinite;
+}
+
+/* TEXTO */
+.direccion-texto {
+  min-height: 400px;
+  background:#fffbf5a6;
+  touch-action: pan-y;
+}
+
+.direccion-texto-contenido {
+  width: 100%;
+  animation: entradaTexto 0.8s ease;
+}
+
+/* TÍTULO */
+.direccion-titulo {
+  color: #826330;
+  //color: #9b2247;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.2;
+  position: relative;
+}
+
+.direccion-titulo::after {
+  content: "";
+  display: block;
+  width: 55px;
+  height: 4px;
+  margin-top: 14px;
+  background-color: #e6d194;
+  border-radius: 10px;
+}
+
+/* DESCRIPCIÓN */
+.direccion-descripcion {
+  color: #261808;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  text-align: justify;
+}
+
+/* NAVEGACIÓN POR PUNTOS */
+.direccion-dots {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  padding: 15px 8px;
+  background: #fffbf5a6;
+  border-radius: 30px;
+  box-shadow:  8px 8px rgba(0, 0, 0, 0.08);
+}
+
+/*  PUNTO  */
+.direccion-dot {
+  width: 10px;
+  height: 10px;
+  flex: 0 0 10px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #cccccc;
+  cursor: pointer;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.direccion-dot.active {
+  background: #ae8420;
+  transform: scale(1.4);
+}
+
+.direccion-dot:hover {
+  background: #ae8420;
+  transform: scale(1.3);
+}
+
+/* PUNTO ACTIVO */
+.direccion-dot.active {
+  background-color:#d9c587  ;
+  transform: scale(1.4);
+}
+
+/* HOVER DE LOS PUNTOS */
+.direccion-dot:hover {
+  background-color:#917036 ;
+  transform: scale(1.3);
+}
+
+/* ANIMACIÓN DE ENTRADA DE IMAGEN */
+@keyframes entradaImagen {
+  from {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes entradaTexto {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes brincarImagen {
+  0% {
+    transform: translateY(0);
+  }
+  15% {
+    transform: translateY(-12px);
+  }
+  30% {
+    transform: translateY(0);
+  }
+  42% {
+    transform: translateY(-6px);
+  }
+  55% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* DIRECCIONES - MÓVIL */
+
+@media (max-width: 767.98px) {
+  /* Dejamos espacio para los puntos */
+  .direccion-card {
+    overflow: hidden;
+  }
+
+  /*IMAGEN */
+  .direccion-imagen {
+    min-height: 320px;
+  }
+
+  .direccion-imagen-contenedor {
+    height: 320px;
+  }
+
+  .direccion-img {
+    max-height: 300px;
+  }
+
+  /* PUNTOS */
+  .direccion-dots {
+    position: relative;
+    left: auto;
+    top: auto;
+    transform: none;
+    width: 100%;
+    padding: 18px 0 12px;
+    background: #ffffff;
+    border-radius: 0;
+    box-shadow: none;
+    /* Los puntos permanecen horizontales */
+    flex-direction: row !important;
+    gap: 14px !important;
+  }
+
+  /* TEXTO */
+  .direccion-texto {
+    min-height: auto;
+  }
+  .direccion-texto-contenido {
+    padding-top: 16px !important;
+  }
+  .direccion-titulo {
+    margin-top: 0;
+    font-size: 1.6rem;
+    line-height: 1.25;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .direccion-dot {
+    width: 12px;
+    height: 12px;
+    flex: 0 0 12px;
+  }
+}

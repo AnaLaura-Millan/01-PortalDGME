@@ -1,0 +1,110 @@
+:host {
+  display: block;
+  width: 100%;
+  overflow-x: clip;
+}
+
+.franja-titulo {
+  width: 100%;
+  height: 8px;
+  background-color: #826330;
+}
+
+.contenido-home {
+  position: relative;
+  width: 100%;
+  background-image:linear-gradient(rgba(255, 251, 245, 0.75),rgba(255, 251, 245, 0.75)),
+    url('/assets/images/fondo/fondo-ninos-movil.png');
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: 100% auto;
+  background-attachment: fixed;
+}
+
+main {
+  position: relative;
+}
+
+/* BANNER LTG */
+.banner-ltg {
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+  filter: drop-shadow(10px 11px rgba(0, 0, 0, 0.10));
+  transition: transform 0.35s ease, filter 0.35s ease;
+}
+
+.banner-ltg-img {
+  transition: transform 0.5s ease, filter 0.5s ease;
+}
+
+.banner-ltg:hover {
+  transform: translateY(-6px);
+  filter: drop-shadow(10px 11px rgba(0, 0, 0, 0.25));
+}
+
+.banner-ltg:hover .banner-ltg-img {
+  transform: scale(1.02);
+  filter: brightness(1.04) saturate(1.05);
+}
+
+/* TOUCH */
+.banner-ltg:active {
+  transform: translateY(-2px) scale(0.99);
+}
+
+/* TECLADO */
+.banner-ltg:focus-visible {
+  outline: 3px solid rgba(155, 34, 71, 0.40);
+  outline-offset: 6px;
+}
+
+.indicador-banner {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 13px;
+  border-radius: 20px;
+  background-color: rgba(155, 34, 71, 0.92);
+  color: #ffffff;
+  font-size: 0.8rem;
+  font-weight: 600;
+  pointer-events: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.16);
+  animation: indicadorToque 2s ease-in-out infinite;
+}
+
+@media (min-width: 1200px) {
+  .contenido-home {
+    background-image:
+      linear-gradient(rgba(255, 251, 245, 0.75), rgba(255, 251, 245, 0.75)),
+      url('/assets/images/fondo/fondo-ninos.png');
+    background-repeat: no-repeat;
+    background-size: 110% auto;
+    background-position: center top;
+    background-attachment: fixed;
+  }
+}
+
+@keyframes indicadorToque {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes manoToque {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px) scale(1.1);
+  }
+}

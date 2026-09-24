@@ -1,0 +1,55 @@
+.gob-navbar {
+  background-color: #611232;
+  min-height: 60px;
+  padding: 0.5rem 1rem;
+}
+
+.navbar-brand {
+  display: flex !important;
+  align-items: center !important;
+}
+
+.navbar-brand img {
+  height: 48px;
+  width: auto;
+}
+
+.navbar-nav {
+  align-items: center;
+}
+
+.nav-link {
+  color: #ffffff !important;
+  font-size: 1rem;
+  font-weight: 400;
+  padding: 0.5rem 1rem !important;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover,
+.nav-link:focus {
+  color: #bc955c !important;
+}
+
+.navbar-toggler {
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.navbar-toggler:focus {
+  box-shadow: none;
+}
+
+@media (max-width: 991.98px) {
+
+  .navbar-collapse {
+    margin-top: 1rem;
+  }
+
+  .navbar-nav {
+    align-items: flex-start;
+  }
+
+  .nav-link {
+    padding-left: 0;
+  }
+}

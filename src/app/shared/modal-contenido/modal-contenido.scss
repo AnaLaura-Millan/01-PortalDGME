@@ -1,0 +1,64 @@
+/* CONTENEDOR */
+.modal-conoce {
+  overflow: hidden;
+  border: 0;
+  border-radius: 24px;
+  background-color: #fffbf5;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.18);
+}
+
+/* TÍTULO*/
+.modal-conoce-titulo {
+   color: #826330;
+  //color: #9b2247;
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+/* TEXTO*/
+.modal-conoce-texto {
+   color: #261808;
+//   color: #333333;
+  font-size: 1rem;
+  line-height: 1.7;
+  text-align: justify;
+}
+
+/* LISTA*/
+.modal-conoce-lista {
+  padding-left: 1.25rem;
+  color: #261808;
+  font-size: 1rem;
+  line-height: 1.55;
+  text-align: justify;
+}
+
+/* MARCADORES*/
+.modal-conoce-lista li::marker {
+  //color: #9b2247;
+  color: #ae8420
+}
+
+/* BOTÓN */
+.btn-conoce {
+  padding: 0.7rem 1rem;
+  border: 0;
+  border-radius: 12px;
+  background-color: #b28c49;
+  //background-color: #9b2247;
+  color: #ffffff;
+  font-weight: 600;
+  transition: background-color 0.25s ease, transform 0.25s ease;
+}
+
+.btn-conoce:hover {
+   background-color: #826330;
+  //background-color: #611232;
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+.btn-conoce:active {
+  transform: translateY(0);
+}

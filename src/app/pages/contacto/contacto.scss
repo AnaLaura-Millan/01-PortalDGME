@@ -1,0 +1,54 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+/* IMÁGENES*/
+
+.contacto-telefono,
+.contacto-direccion {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  filter: drop-shadow(10px 11px rgba(0, 0, 0, 0.08));
+  transition: transform 0.35s ease, filter 0.35s ease;
+}
+
+/* HOVER 
+.contacto-telefono:hover,
+.contacto-direccion:hover {
+  transform: translateY(-5px);
+  filter: drop-shadow(8px 11px rgba(0, 0, 0, 0.14));
+} */
+
+/* MAPA */
+.contacto-mapa {
+  overflow: hidden;
+  padding: 5px;
+  background-color: #ffffff;
+  border-radius: 24px;
+  box-shadow: 8px 10px 0 rgba(0, 0, 0, 0.08), 0 12px 30px rgba(0, 0, 0, 0.08);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.contacto-mapa iframe {
+  border: 0;
+  border-radius: 19px;
+}
+
+/* HOVER MAPA */
+.contacto-mapa:hover {
+  transform: translateY(-5px);
+  box-shadow: 8px 12px 0 rgba(0, 0, 0, 0.08), 0 16px 35px rgba(0, 0, 0, 0.12);
+}
+
+@media (min-width: 1047px) {
+  .contacto-direccion-col {
+    display: flex;
+    align-items: flex-end;
+  }
+  .contacto-direccion-col > div {
+    justify-content: flex-start !important;
+  }
+}

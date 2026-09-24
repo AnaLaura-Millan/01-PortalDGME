@@ -1,0 +1,392 @@
+:host {
+  display: block;
+  position: sticky;
+  top: 0;
+  z-index: 1020;
+}
+
+/* VARIABLES */
+$color-fondo: #b28c49;
+$color-boton: #b28c49;
+$guinda: #917036;
+$guinda-oscuro: #826330;
+$verde: #235c4f;
+$texto: #edd899;
+$blanco: #edd899;
+$sombra-suave: 0 8px 24px rgba(0, 0, 0, 0.16);
+
+/* NAVBAR */
+.menu-principal {
+  width: 100%;
+}
+
+/* CONTENEDOR */
+.menu-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+}
+
+/* BOTÓN MÓVIL */
+.boton-menu-movil {
+  display: none;
+}
+
+/* BLOQUE 1 */
+.menu-grupo-principal {
+  display: flex;
+  align-items: center;
+  padding: 3px;
+  background: $color-boton;
+  border: 3px solid $guinda;
+  border-radius: 40px;
+  box-shadow: 5px 8px 0 $guinda-oscuro;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+/* ITEMS DEL BLOQUE 1 */
+.menu-item {
+  min-height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 18px;
+  text-decoration: none;
+  color: $texto;
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
+  border-radius: 30px;
+  transition: background-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
+}
+
+/* HOVER */
+.menu-item:hover {
+  background: #ae8420;
+  color: $guinda-oscuro;
+  transform: translateY(-1px);
+}
+
+/* ACTIVO */
+.menu-item.activo {
+  background: $verde;
+  color: $blanco;
+}
+
+/* INICIO */
+
+.menu-item.inicio {
+  gap: 8px;
+  padding-left: 8px;
+}
+
+/* ICONO INICIO */
+.icono-inicio {
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: $blanco;
+  border-radius: 50%;
+}
+
+.icono-inicio img {
+  width: 23px;
+  height: 23px;
+  object-fit: contain;
+}
+
+/* BOTONES INDEPENDIENTES */
+.menu-boton {
+  min-height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 24px;
+  text-decoration: none;
+  text-align: center;
+  color: $texto;
+  background: $color-boton;
+  border: 3px solid $guinda;
+  border-radius: 25px;
+  box-shadow: 5px 8px 0 $guinda-oscuro;
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition:
+    transform 0.25s ease,
+    background-color 0.25s ease,
+    color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+/* HOVER BOTONES */
+.menu-boton:hover {
+  transform: translateY(-2px);
+  background: #ae8420;
+  color: $guinda-oscuro;
+  box-shadow: 5px 10px 0 $guinda-oscuro;
+}
+
+/* ACTIVO */
+.menu-boton.activo {
+  background: $verde;
+  color: $blanco;
+}
+
+/* =========================================================
+   PANTALLAS MEDIANAS
+   TODAVÍA ES MENÚ DE ESCRITORIO
+========================================================= */
+@media (max-width: 1400px) {
+  .menu-principal {
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+
+  .menu-container {
+    gap: 18px;
+  }
+
+  .menu-item {
+    padding: 0 14px;
+    font-size: 13px;
+  }
+
+  .menu-boton {
+    padding: 0 18px;
+    font-size: 13px;
+  }
+}
+
+/* TABLET Y MÓVIL */
+@media (max-width: 1100px) {
+  /* NAVBAR */
+  .menu-principal {
+    width: auto;
+    padding: 10px 0 0 12px;
+    background: transparent;
+    pointer-events: none;
+  }
+
+  /* OCULTAR MENÚ DE ESCRITORIO */
+  .menu-container {
+    display: none;
+    width: max-content;
+    max-width: calc(100vw - 24px);
+    position: absolute;
+    top: 68px;
+    left: 12px;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 6px;
+    padding: 10px;
+    pointer-events: auto;
+    background: #b28c49;
+    border: 2px solid rgba(155, 34, 71, 0.30);
+    border-radius: 18px;
+    box-shadow: $sombra-suave;
+    z-index: 1001;
+    animation:
+      abrirMenu
+      0.22s
+      ease;
+  }
+
+  /* SOLO SE MUESTRA CUANDO menuAbierto = true */
+  .menu-container.abierto {
+    display: flex;
+  }
+
+  /* BOTÓN CIRCULAR */
+  .boton-menu-movil {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    position: relative;
+    z-index: 1002;
+    pointer-events: auto;
+    background: $color-boton;
+    border: 2px solid $guinda;
+    border-radius: 50%;
+    box-shadow: 3px 4px 0 $guinda-oscuro;
+    cursor: pointer;
+  }
+
+  /* ☰ / X */
+  .hamburguesa {
+    margin: 0;
+    display: block;
+    color: $guinda-oscuro;
+    font-family:
+      Arial,
+      Helvetica,
+      sans-serif;
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  /* BLOQUE 1 */
+  .menu-grupo-principal {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0 0 6px 0;
+    margin: 0 0 4px 0; 
+    background: #b28c49;
+    border: none;
+    border-bottom: 1px solid rgba(97, 18, 50, 0.15);
+    border-radius: 0;
+    box-shadow: none;
+    overflow: visible;
+  }
+
+  /* OPCIONES */
+  .menu-item {
+    width: 100%;
+    min-height: 40px;
+    justify-content: flex-start;
+    padding: 7px 14px;
+    color: $texto;
+    font-size: 13px;
+    border-radius: 13px;
+  }
+
+  .menu-item:hover {
+    background: #ae8420;
+    color: $guinda-oscuro;
+    transform: none;
+    padding-left: 18px;
+  }
+
+  .menu-item.activo {
+    background: $verde;
+    color: $blanco;
+    padding-left: 18px;
+  }
+
+  /* INICIO */
+  .menu-item.inicio {
+    gap: 7px;
+    padding-left: 7px;
+  }
+
+  .menu-item.inicio:hover,
+  .menu-item.inicio.activo {
+    padding-left: 7px;
+  }
+
+  .icono-inicio {
+    width: 28px;
+    height: 28px;
+  }
+
+  .icono-inicio img {
+    width: 19px;
+    height: 19px;
+  }
+
+  /* BOTONES SECUNDARIOS */
+
+  .menu-boton {
+    width: 100%;
+    min-height: 40px;
+    justify-content: flex-start;
+    padding: 7px 14px;
+    color: $texto;
+    background: transparent;
+    border: none;
+    border-radius: 13px;
+    box-shadow: none;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+
+
+  .menu-boton:hover {
+    transform: none;
+    background:rgba(234, 215, 152, 0.65);
+    color: $guinda-oscuro;
+    box-shadow: none;
+    padding-left: 18px;
+  }
+
+  .menu-boton.activo {
+    background: $verde;
+    color: $blanco;
+    padding-left: 18px;
+  }
+}
+
+/* CELULAR */
+
+@media (max-width: 576px) {
+  .menu-principal {
+    padding-top: 8px;
+    padding-left: 8px;
+  }
+
+  .boton-menu-movil {
+    width: 43px;
+    height: 43px;
+  }
+
+  .hamburguesa {
+    font-size: 19px;
+  }
+
+  .menu-container {
+    top: 61px;
+    left: 8px;
+    max-width: calc(100vw - 16px);
+    padding: 8px;
+    border-radius: 16px;
+  }
+
+  .menu-item,
+  .menu-boton {
+    min-height: 37px;
+    padding:
+      6px
+      12px;
+    font-size: 12.5px;
+  }
+
+  .menu-item:hover,
+  .menu-item.activo,
+  .menu-boton:hover,
+  .menu-boton.activo {
+    padding-left: 15px;
+  }
+
+  .menu-item.inicio,
+  .menu-item.inicio:hover,
+  .menu-item.inicio.activo {
+    padding-left: 6px;
+  }
+}
+
+/*  ANIMACIÓN */
+@keyframes abrirMenu {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}

@@ -1,0 +1,47 @@
+<section id="direcciones" class="py-5">
+
+  <div class="container">
+
+    <!-- CONTENEDOR DEL CARRUSEL
+     NOTA: Cuando el mouse entra: se detiene el autoplay. Cuando sale: vuelve a comenzar la cuenta de 30 segundos.
+    -->
+    <div class="direccion-slider" (mouseenter)="detenerAutoPlay()" (mouseleave)="iniciarAutoPlay()">
+
+      <!--  TARJETA PRINCIPAL -->
+      <div class="direccion-card">
+        <div class="row g-0 h-100">
+          <!-- IMAGEN-->
+          <div class="col-12 col-md-6 d-flex align-items-center justify-content-center direccion-imagen" (pointerdown)="iniciarDeslizamiento($event)" (pointerup)="terminarDeslizamiento($event)">
+            @for ( direccion of direcciones; track direccion.id; let i = $index) {
+              @if (i === indice()) {
+                <div class="direccion-imagen-contenedor">
+                  <img [src]="direccion.imagen" [alt]="direccion.titulo" class="img-fluid direccion-img">
+                </div>
+              }
+            }
+          </div>
+
+          <!-- LADO DERECHO - TEXTO -->
+         <div class="col-12 col-md-6 d-flex align-items-center direccion-texto" (pointerdown)="iniciarDeslizamiento($event)" (pointerup)="terminarDeslizamiento($event)">
+            @for ( direccion of direcciones; track direccion.id;let i = $index) {
+              @if (i === indice()) {
+                <div class="direccion-texto-contenido p-4 p-lg-5">
+                  <h2 class="direccion-titulo text-start mb-4"> {{ direccion.titulo }} </h2>
+                  <p class="direccion-descripcion mb-0"> {{ direccion.descripcion }} </p>
+                </div>
+              }
+            }
+          </div>
+        </div>
+
+        <!-- NAVEGACIÓN POR PUNTOS -->
+        <div class="direccion-dots d-flex flex-md-column align-items-center justify-content-center gap-3" aria-label="Navegación de direcciones">
+          @for ( direccion of direcciones; track direccion.id; let i = $index) {
+            <button type="button" class="direccion-dot" [class.active]="i === indice()" (click)="saltarA(i)" [attr.aria-label]="'Mostrar ' + direccion.titulo" [attr.aria-current]="i === indice() ? 'true' : null">
+            </button>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
