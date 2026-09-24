@@ -53,30 +53,6 @@
   border-radius: 12px;
 }
 
-.indicador-toque {
-  position: absolute;
-  right: 14px;
-  bottom: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  background-color: rgba(155, 34, 71, 0.92);
-  color: #ffffff;
-  pointer-events: none;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.18);
-  animation: indicadorToque 4s ease-in-out infinite;
-}
-
-.indicador-mano {
-  display: block;
-  font-size: 1.15rem;
-  line-height: 1;
-  animation: manoToque 1.2s ease-in-out infinite;
-}
-
 /* ANIMACIÓN */
 @keyframes conoceFlotar {
   0%,
@@ -117,25 +93,5 @@
     transform:
       scale(1)
       rotate(0deg);
-  }
-}
-
-@keyframes indicadorToque {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-4px);
-  }
-}
-
-@keyframes manoToque {
-  0%,
-  100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.18);
   }
 }
