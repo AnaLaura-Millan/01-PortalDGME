@@ -32,8 +32,9 @@
       <!-- BLOQUE 2 -->
       <a  href="https://bdchamakes.sep.gob.mx/dgme.html" target="_blank" class="menu-boton"> LIBROS DE TEXTO GRATUITOS </a>
 
-      <!-- BLOQUE 3-->
-      <a href="#invitaciones" class="menu-boton" [ngClass]="{ 'activo': menuActivo === 'invitaciones' }" (click)="activarMenu('invitaciones')"> INVITACIONES </a>
+      <!-- BLOQUE 3 
+      <a href="#invitaciones" class="menu-boton" [ngClass]="{ 'activo': menuActivo === 'invitaciones' }" (click)="activarMenu('invitaciones')"> INVITACIONES </a> -->
+      <a class="menu-boton deshabilitado" aria-disabled="true" tabindex="-1"> INVITACIONES </a>
     </div>
    </div>
 </nav>

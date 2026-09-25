@@ -13,9 +13,8 @@
 .contenido-home {
   position: relative;
   width: 100%;
-  background-image:linear-gradient(rgba(255, 251, 245, 0.75),rgba(255, 251, 245, 0.75)),
-    url('/assets/images/fondo/fondo-ninos-movil.png');
-  background-repeat: no-repeat;
+  background-image: url('/assets/images/fondo/fondo-ninos-movil.png');
+  background-repeat: repeat;
   background-position: center top;
   background-size: 100% auto;
   background-attachment: fixed;
@@ -79,9 +78,8 @@ main {
 
 @media (min-width: 1200px) {
   .contenido-home {
-    background-image:
-      linear-gradient(rgba(255, 251, 245, 0.75), rgba(255, 251, 245, 0.75)),
-      url('/assets/images/fondo/fondo-ninos.png');
+    background-color:#f7e6c7 ;
+    background-image:url('/assets/images/fondo/fondo-ninos.png');
     background-repeat: no-repeat;
     background-size: 110% auto;
     background-position: center top;
