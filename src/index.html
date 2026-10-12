@@ -12,15 +12,31 @@
     href="https://framework-gb.cdn.gob.mx/gm/accesibilidad/css/gobmx-accesibilidad.min.css">
 
   <!-- Google Analytics 4 -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-1EN3L0ST8H"></script>
-
   <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-1EN3L0ST8H');
+    (function () {
+      // Registrar estadísticas únicamente en el dominio oficial
+      if (window.location.hostname !== 'dgme.sep.gob.mx') {
+        return;
+      }
+
+      // Cargar Google Analytics
+      const script = document.createElement('script');
+      script.async = true;
+      script.src = 'https://www.googletagmanager.com/gtag/js?id=G-1EN3L0ST8H';
+      document.head.appendChild(script);
+
+      // Inicializar Google Analytics
+      window.dataLayer = window.dataLayer || [];
+
+      window.gtag = function () {
+        window.dataLayer.push(arguments);
+      };
+
+      window.gtag('js', new Date());
+      window.gtag('config', 'G-1EN3L0ST8H');
+    })();
   </script>
-  <!-- Google Analytics 4 -->
+  <!-- Fin Google Analytics 4 -->
    
 </head>
 <body>
