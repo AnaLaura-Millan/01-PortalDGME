@@ -1,6 +1,8 @@
 import { Component,OnDestroy, OnInit, signal } from '@angular/core';
 import { IDireccion } from '../../interface/direcciones.model';
 
+import { inject } from '@angular/core';
+import { Analytics } from '../../services/analytics';
 
 @Component({
   imports: [],
@@ -10,6 +12,8 @@ import { IDireccion } from '../../interface/direcciones.model';
 })
 
 export class Direcciones implements OnInit, OnDestroy {
+
+  private analytics = inject(Analytics);
 
   indice = signal(0);
   private intervalo?: ReturnType<typeof setInterval>;
@@ -92,6 +96,10 @@ export class Direcciones implements OnInit, OnDestroy {
   /* SELECCIONAR DESDE LOS PUNTOS */
   saltarA(indice: number): void {
     this.indice.set(indice);
+
+    // Registrar únicamente la selección manual
+    this.registrarDireccion();
+
     this.iniciarAutoPlay();
   }
 
@@ -103,17 +111,24 @@ export class Direcciones implements OnInit, OnDestroy {
 
   /* TERMINAR DESLIZAMIENTO */
   terminarDeslizamiento(event: PointerEvent): void {
-    const finX = event.clientX;
-    const diferencia = finX - this.inicioX;
+    const diferencia = event.clientX - this.inicioX;
     const distanciaMinima = 50;
+
     if (Math.abs(diferencia) >= distanciaMinima) {
-      if (diferencia < 0) {
-        this.siguiente();
-      }
-      else {
-        this.anterior();
-      }
+      diferencia < 0 ? this.siguiente() : this.anterior();
+
+      // Registrar únicamente cuando hubo deslizamiento
+      this.registrarDireccion();
     }
+
     this.iniciarAutoPlay();
+  }
+
+  private registrarDireccion(): void {
+    const direccion = this.direcciones[this.indice()];
+
+    if (direccion) {
+      this.analytics.registrarClick('direcciones', direccion.titulo);
+    }
   }
 }

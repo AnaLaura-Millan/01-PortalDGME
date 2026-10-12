@@ -9,7 +9,7 @@
     <div class="menu-container" [ngClass]="{ 'abierto': menuAbierto }">
       <!--  BLOQUE 1 INICIO + 4 SECCIONES  -->
       <div class="menu-grupo-principal">
-        <a href="#inicio" class="menu-item inicio" [ngClass]="{ 'activo': menuActivo === 'inicio' }" (click)="activarMenu('inicio')">
+        <a href="#inicio" class="menu-item inicio" [ngClass]="{ 'activo': menuActivo === 'inicio' }" (click)="activarMenu('inicio'); registrarNavegacion('Inicio')">
           <span class="icono-inicio">
             <img src="/assets/images/iconos/dgme.png" alt="">
           </span>
@@ -17,20 +17,23 @@
         </a>
         
         <!-- SECCIÓN 1 -->
-        <a href="https://chamakes.sep.gob.mx/" target="_blank" class="menu-item"> CHAMAKES </a>
+        <a href="https://chamakes.sep.gob.mx/" target="_blank" class="menu-item" (click)="registrarNavegacion('Chamakes')"> CHAMAKES </a>
 
         <!-- SECCIÓN 2 -->
-        <a href="https://sea.sep.gob.mx/#/hom" target="_blank" class="menu-item"> SEA </a>
+        <a href="https://sea.sep.gob.mx/#/hom" target="_blank" class="menu-item" (click)="registrarNavegacion('SEA')"> SEA </a>
 
         <!-- SECCIÓN 3 -->
-        <a href="https://telesecundaria.sep.gob.mx/#/home" target="_blank" class="menu-item"> TELESECUNDARIA </a>
+        <a href="https://telesecundaria.sep.gob.mx/#/home" target="_blank" class="menu-item" (click)="registrarNavegacion('Telesecundaria')"> TELESECUNDARIA </a>
 
         <!-- SECCIÓN 4 -->
-        <a href="https://educacionmultigrado.sep.gob.mx/" target="_blank" class="menu-item"> MULTIGRADO </a>
+        <a href="https://educacionmultigrado.sep.gob.mx/" target="_blank" class="menu-item" (click)="registrarNavegacion('Multigrado')"> MULTIGRADO </a>
+
+        <!-- SECCIÓN 5 -->
+        <a href="https://www.nantlico.com/utcv/inicio" target="_blank" class="menu-item" (click)="registrarNavegacion('Nantlico')"> NANTLICO </a>
       </div>
 
       <!-- BLOQUE 2 -->
-      <a  href="https://bdchamakes.sep.gob.mx/dgme.html" target="_blank" class="menu-boton"> LIBROS DE TEXTO GRATUITOS </a>
+      <a  href="https://bdchamakes.sep.gob.mx/dgme.html" target="_blank" class="menu-boton" (click)="registrarNavegacion('Libros de Texto Gratuitos')"> LIBROS DE TEXTO GRATUITOS </a>
 
       <!-- BLOQUE 3 
       <a href="#invitaciones" class="menu-boton" [ngClass]="{ 'activo': menuActivo === 'invitaciones' }" (click)="activarMenu('invitaciones')"> INVITACIONES </a> -->

@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { NgClass } from '@angular/common';
 
+import { inject } from '@angular/core';
+import { Analytics } from '../../services/analytics';
+
 @Component({
   imports: [NgClass],
   selector: 'app-navbar',
@@ -9,6 +12,8 @@ import { NgClass } from '@angular/common';
   templateUrl: './navbar.html',
 })
 export class Navbar {
+
+  private analytics = inject(Analytics);
 
   menuActivo = 'inicio';
   menuAbierto = false;
@@ -21,5 +26,10 @@ export class Navbar {
 
   alternarMenu(): void {
     this.menuAbierto = !this.menuAbierto;
+  }
+
+  //Evento para Google Analytics
+  registrarNavegacion(elemento: string): void {
+    this.analytics.registrarClick('navegacion', elemento);
   }
 }

@@ -2,6 +2,10 @@ import { Component} from '@angular/core';
 import { ModalContenido } from '../../shared/modal-contenido/modal-contenido';
 import { IConoce } from '../../interface/conoce.model';
 
+// IMPORTACIONES PARA GOOGLE ANALITYCS
+import { inject } from '@angular/core';
+import { Analytics } from '../../services/analytics';
+
 @Component({
   standalone: true,
   imports: [ModalContenido],
@@ -10,6 +14,8 @@ import { IConoce } from '../../interface/conoce.model';
   templateUrl: './conoce.html',
 })
 export class Conoce {
+
+  private analytics = inject(Analytics);
 
   opcionSeleccionada: IConoce | null = null;
   opciones: IConoce [] = [
@@ -56,5 +62,7 @@ export class Conoce {
 
     this.opcionSeleccionada = opcion;
 
+    // Registrar el nombre real de la tarjeta
+    this.analytics.registrarClick( 'conoce', opcion.titulo)
   }
 }
