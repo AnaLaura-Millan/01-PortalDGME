@@ -61,6 +61,21 @@ hr {
   opacity: 1;
 }
 
+
+// Quita el scroll visiblemente en toda lapagina
+html {
+    scrollbar-width: none;
+}
+
+body {
+    -ms-overflow-style: none;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+    display: none;
+}
+
 /* =========================================================
    COMPENSACIÓN BOOTSTRAP AL ABRIR MODAL
    TABLET / ESCRITORIO

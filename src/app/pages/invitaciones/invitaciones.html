@@ -1,0 +1,160 @@
+
+<!-- CONTENEDOR PRINCIPAL -->
+<div class="content-wrapper">
+   <app-banner></app-banner>
+   <div class="franja-titulo"></div>
+
+   <div class="contenido-home">
+        <app-navbar class="py-4"></app-navbar>
+
+        <!-- CONTENIDO -->
+        <main class="container py-5">
+            <div class="panel-invitaciones">
+                
+                <!-- PESTAÑAS -->
+                <ul class="nav nav-tabs nav-fill flex-column flex-sm-row mb-4">
+                    <!-- VIGENTES -->
+                    <li class="nav-item">
+                        <button type="button" class="nav-link w-100" [class.active]="pestanaActiva() === 'vigentes'" (click)="cambiarPestana('vigentes')"> Invitaciones Vigentes </button>
+                    </li>
+
+                    <!-- PASADAS -->
+                    <li class="nav-item">
+                        <button type="button" class="nav-link w-100" [class.active]="pestanaActiva() === 'pasadas'" (click)="cambiarPestana('pasadas')"> Invitaciones Pasadas </button>
+                    </li>
+
+                    <!-- RESULTADOS -->
+                    <li class="nav-item">
+                        <button type="button" class="nav-link w-100" [class.active]="pestanaActiva() === 'resultados'" (click)="cambiarPestana('resultados')"> Resultados </button>
+                    </li>
+                </ul>
+
+                <!-- CONTENIDO DE LAS PESTAÑAS -->
+
+                <!-- INVITACIONES VIGENTES -->
+                @if (pestanaActiva() === 'vigentes') {
+                    <section class="seccion-invitaciones vigentes">
+                        <div class="accordion">
+                            @for (invitacion of invitacionesVigentes(); track invitacion.id) {
+                                <div class="accordion-item mb-3">
+                                    <h3 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#vigente-' + invitacion.id" aria-expanded="false" [attr.aria-controls]="'vigente-' + invitacion.id">
+                                            <span class="icono-circular me-3"><i class="bi bi-megaphone"></i></span>
+                                            <span class="titulo-tarjeta"> {{ invitacion.titulo }} </span>
+                                        </button>
+                                    </h3>
+
+                                    <div [id]="'vigente-' + invitacion.id" class="accordion-collapse collapse">
+                                        <div class="accordion-body">
+                                            @for (documento of invitacion.documentos; track documento.id) {
+                                                <div class="mb-2">
+                                                    <a [href]="documento.url" target="_blank" rel="noopener noreferrer" class="text-decoration-none">
+                                                        <i class="bi bi-file-earmark-pdf me-2"></i> {{ documento.nombre }}
+                                                    </a>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            } 
+                            @empty { 
+                                <p>No hay invitaciones vigentes.</p> 
+                            }
+                        </div>
+                    </section>
+                }
+
+                <!-- INVITACIONES PASADAS -->
+                @if (pestanaActiva() === 'pasadas') {
+                    <section class="seccion-invitaciones pasadas">    
+                        <!-- FILTRO POR AÑO: INVITACIONES PASADAS -->
+                        <div class="buscador-anio">
+                            <div class="select-anio">
+                                <i class="bi bi-calendar-range icono-calendario"></i>
+                                <select id="anioPasadas" class="form-select" [value]="anioPasadas() ?? ''" (change)="filtrarPorAnio($any($event.target).value === ''? null: +$any($event.target).value)">
+                                    <option value="">Todos los años</option>
+                                        @for (anio of aniosPasadas(); track anio) {
+                                            <option [value]="anio">{{ anio }}</option>
+                                        }
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="accordion">
+                            @for (invitacion of invitacionesPasadasFiltradas(); track invitacion.id) {
+                                <div class="accordion-item mb-3">
+                                    <h3 class="accordion-header">
+                                        <button  class="accordion-button collapsed" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#pasada-' + invitacion.id" aria-expanded="false" [attr.aria-controls]="'pasada-' + invitacion.id">
+                                            <span class="icono-circular me-3"><i class="bi bi-eye"></i></span>
+                                            <span class="titulo-tarjeta"> {{ invitacion.titulo }} </span>
+                                        </button>
+                                    </h3>
+                                    <div [id]="'pasada-' + invitacion.id" class="accordion-collapse collapse">
+                                        <div class="accordion-body">
+                                            @for (documento of invitacion.documentos; track documento.id) {
+                                                <div class="mb-2">
+                                                    <a [href]="documento.url" target="_blank" rel="noopener noreferrer" class="text-decoration-none">
+                                                        <i class="bi bi-file-earmark-pdf me-2"></i>{{ documento.nombre }}
+                                                    </a>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            } 
+                            @empty {
+                                <p>No hay invitaciones pasadas.</p>
+                            }
+                        </div>
+                    </section>
+                }
+
+                <!-- RESULTADOS -->
+                @if (pestanaActiva() === 'resultados') {
+                    <section class="seccion-invitaciones resultados">   
+                        <!-- FILTRO POR AÑO: RESULTADOS -->
+                        <div class="buscador-anio">
+                            <div class="select-anio">
+                                <i class="bi bi-calendar-range icono-calendario"></i>
+                                <select id="anioResultados" class="form-select" [value]="anioResultados() ?? ''" (change)="filtrarResultadosPorAnio( $any($event.target).value === ''? null: +$any($event.target).value)">
+                                    <option value="">Todos los años</option>
+                                    @for (anio of aniosResultados(); track anio) {
+                                        <option [value]="anio">{{ anio }}</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="accordion">
+                            @for (invitacion of resultadosFiltrados(); track invitacion.id) {
+                                <div class="accordion-item mb-3">
+                                    <h3 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#resultado-' + invitacion.id" aria-expanded="false" [attr.aria-controls]="'resultado-' + invitacion.id">
+                                            <span class="icono-circular me-3"><i class="bi bi-eye"></i></span>
+                                            <span class="titulo-tarjeta"> {{ invitacion.titulo }} </span>
+                                        </button>
+                                    </h3>
+
+                                    <div [id]="'resultado-' + invitacion.id" class="accordion-collapse collapse">
+                                        <div class="accordion-body">
+                                            @for (documento of invitacion.documentos; track documento.id) {
+                                                <div class="mb-2">
+                                                    <a [href]="documento.url" target="_blank" rel="noopener noreferrer" class="text-decoration-none">
+                                                        <i class="bi bi-file-earmark-pdf me-2"></i>{{ documento.nombre }}
+                                                    </a>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            } 
+                            @empty {
+                                <p>No hay resultados disponibles.</p>
+                            }
+
+                        </div>
+                    </section>
+                }
+            </div>
+        </main>
+   </div>
+</div>
