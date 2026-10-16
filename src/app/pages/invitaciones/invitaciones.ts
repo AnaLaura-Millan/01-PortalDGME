@@ -1,4 +1,7 @@
-import { Component, computed, signal} from '@angular/core';
+
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import { forkJoin } from 'rxjs';
+import { InvitacionesService, TipoInvitacion, IInvitacionApi } from '../../services/invitaciones.service';
 import { Navbar } from '../../shared/navbar/navbar';
 import { Banner } from '../../shared/banner/banner';
 import { IInvitacion } from '../../interface/invitacion.model';
@@ -12,7 +15,9 @@ type TipoPestana = 'vigentes' | 'pasadas' | 'resultados';
   styleUrl: './invitaciones.scss',
   templateUrl: './invitaciones.html',
 })
-export class Invitaciones {
+export class Invitaciones  implements OnInit {
+
+  private invitacionesService = inject(InvitacionesService);
 
   //pestaña activa
   pestanaActiva = signal<TipoPestana>('vigentes');
@@ -20,110 +25,10 @@ export class Invitaciones {
   anioPasadas = signal<number | null>(null);
   anioResultados = signal<number | null>(null);
 
-  // DATOS TEMPORALES
-  invitaciones = signal<IInvitacion[]>([
-    { id: 1,
-      titulo: 'Invitación 1',
-      anio: 2026,
-      categoria: 'vigentes',
-      documentos: [
-        {
-          id: 1,
-          nombre: 'Participantes convocados',
-          url: 'assets/pdf/participantes.pdf'
-        },
-        {
-          id: 2,
-          nombre: 'Bases de participación',
-          url: 'assets/pdf/bases.pdf'
-        }
-      ]
-    },
-    {
-      id: 2,
-      titulo: 'Invitación 2025',
-      anio: 2025,
-      categoria: 'pasadas',
-      documentos: [
-        {
-          id: 3,
-          nombre: 'Convocatoria 2025',
-          url: 'assets/pdf/convocatoria-2025.pdf'
-        }
-      ]
-    },
-    {
-      id: 3,
-      titulo: 'Resultados 2026',
-      anio: 2026,
-      categoria: 'resultados',
-      documentos: [
-        {
-          id: 4,
-          nombre: 'Listado de resultados',
-          url: 'assets/pdf/resultados-2026.pdf'
-        }
-      ]
-    },
-    {
-      id: 4,
-      titulo: 'Invitación 2024',
-      anio: 2024,
-      categoria: 'pasadas',
-      documentos: [
-        {
-          id: 5,
-          nombre: 'Convocatoria 2024',
-          url: 'assets/pdf/convocatoria-2024.pdf'
-        },
-        {
-          id: 6,
-          nombre: 'Bases de participación 2024',
-          url: 'assets/pdf/bases-2024.pdf'
-        }
-      ]
-    },
-    {
-      id: 5,
-      titulo: 'Invitación 2023',
-      anio: 2023,
-      categoria: 'pasadas',
-      documentos: [
-        {
-          id: 7,
-          nombre: 'Convocatoria 2023',
-          url: 'assets/pdf/convocatoria-2023.pdf'
-        }
-      ]
-    },
-    {
-      id: 6,
-      titulo: 'Resultados 2025',
-      anio: 2025,
-      categoria: 'resultados',
-      documentos: [
-        {
-          id: 8,
-          nombre: 'Listado de resultados 2025',
-          url: 'assets/pdf/resultados-2025.pdf'
-        }
-      ]
-    },
-    {
-      id: 7,
-      titulo: 'Resultados 2024',
-      anio: 2024,
-      categoria: 'resultados',
-      documentos: [
-        {
-          id: 9,
-          nombre: 'Listado de resultados 2024',
-          url: 'assets/pdf/resultados-2024.pdf'
-        }
-      ]
-    }
-
-  ]);
+  //Datos para el API
+  invitaciones = signal<IInvitacion[]>([]);
+  cargando = signal<boolean>(false);
+  errorCarga = signal<string | null>(null);
 
   // CLASIFICAR INVITACIONES POR CATEGORÍA
   invitacionesVigentes = computed(() => this.invitaciones().filter( invitacion => invitacion.categoria === 'vigentes'));
@@ -144,6 +49,10 @@ export class Invitaciones {
   // RESULTADOS FILTRADOS
   resultadosFiltrados = computed(() => this.resultados().filter(item => this.anioResultados() === null || item.anio === this.anioResultados()));
 
+  ngOnInit(): void {
+    this.cargarInvitaciones();
+  }
+
   // CAMBIAR AÑO DE INVITACIONES PASADAS
   filtrarPorAnio(anio: number | null): void {
     this.anioPasadas.set(anio);
@@ -161,5 +70,47 @@ export class Invitaciones {
     // Reiniciar los filtros al cambiar de pestaña
     this.anioPasadas.set(null);
     this.anioResultados.set(null);
+  }
+
+  private cargarInvitaciones(): void {
+
+    this.cargando.set(true);
+    this.errorCarga.set(null);
+
+    forkJoin({
+      vigentes: this.invitacionesService.obtenerInvitaciones('vigentes'),
+      pasadas: this.invitacionesService.obtenerInvitaciones('pasadas'),
+      resultados: this.invitacionesService.obtenerInvitaciones('resultados')
+    }).subscribe({
+      next: (respuesta) => {
+        const invitaciones: IInvitacion[] = [
+          ...this.transformarInvitaciones(respuesta.vigentes.datos, 'vigentes'),
+          ...this.transformarInvitaciones(respuesta.pasadas.datos, 'pasadas'),
+          ...this.transformarInvitaciones(respuesta.resultados.datos, 'resultados')
+        ];
+
+        this.invitaciones.set(invitaciones);
+        this.cargando.set(false);
+      },
+      error: (error) => {
+        console.error('Error al cargar invitaciones:', error);
+        this.errorCarga.set('No fue posible cargar las invitaciones.');
+        this.cargando.set(false);
+      }
+    });
+  }
+
+  private transformarInvitaciones(datos: IInvitacionApi[], categoria: TipoInvitacion): IInvitacion[] {
+    return datos.map(invitacion => ({
+      id: invitacion.id_inv,
+      titulo: invitacion.titulo,
+      anio: invitacion.anio,
+      categoria,
+      documentos: invitacion.documentos.map(documento => ({
+        id: documento.id_doc,
+        nombre: documento.nombre,
+        url: documento.url
+      }))
+    }));
   }
 }

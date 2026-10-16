@@ -1,7 +1,5 @@
 <?php
 
-<?php
-
 //Cambiar datos de conexion por la proporcionada
 $host = '192.168.103.21';
 $dbname = 'la_rede';

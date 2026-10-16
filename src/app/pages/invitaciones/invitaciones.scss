@@ -499,6 +499,56 @@ $color-resultados: #e6d194;
   color: #666666;
 }
 
+
+/* DOCUMENTOS DE INVITACIONES */
+.documento-item {
+  padding: 12px 16px;
+  border-radius: 8px;
+  border-left: 4px solid transparent;
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease;
+
+  a {
+    color: #611232;
+    display: block;
+  }
+
+  &:hover {
+    background-color: #f0dcae;
+    border-left-color: #b88f31;
+  }
+}
+
+/* DOCUMENTO MÁS RECIENTE */
+.documento-reciente {
+  background-color: #e5efe9;
+  //border-left-color: #397d6c;
+  a {
+    color: #17594d;
+    font-weight: 600;
+  }
+
+  &:hover {
+    background-color: #f0dcae;
+    border-left-color: #b88f31;
+  }
+}
+
+/* ÍCONO DISCRETO DE ACTUALIZACIÓN */
+.icono-reciente {
+  color: #397d6c;
+  font-size: 0.95rem;
+  opacity: 0.85;
+  flex-shrink: 0;
+}
+
+.documento-reciente:hover .icono-reciente {
+  color: #17594d;
+  opacity: 1;
+}
+
+
 /* Accesibilidad */
 @media (prefers-reduced-motion: reduce) {
   .seccion-invitaciones .accordion-button .bi,

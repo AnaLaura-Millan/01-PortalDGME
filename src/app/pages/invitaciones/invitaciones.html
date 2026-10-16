@@ -46,10 +46,14 @@
 
                                     <div [id]="'vigente-' + invitacion.id" class="accordion-collapse collapse">
                                         <div class="accordion-body">
-                                            @for (documento of invitacion.documentos; track documento.id) {
-                                                <div class="mb-2">
-                                                    <a [href]="documento.url" target="_blank" rel="noopener noreferrer" class="text-decoration-none">
-                                                        <i class="bi bi-file-earmark-pdf me-2"></i> {{ documento.nombre }}
+                                            @for (documento of invitacion.documentos; track documento.id; let primero = $first) {
+                                                <div class="documento-item mb-2" [class.documento-reciente]="primero">
+                                                    <a [href]="documento.url" target="_blank" rel="noopener noreferrer" class="text-decoration-none d-flex align-items-center gap-2">
+                                                        <i class="bi bi-file-earmark-pdf"></i>
+                                                        <span class="flex-grow-1"> {{ documento.nombre }} </span>
+                                                        @if (primero) {
+                                                            <i class="bi bi-clock-history icono-reciente" title="Documento más reciente" aria-label="Documento más reciente"></i>
+                                                        }
                                                     </a>
                                                 </div>
                                             }
@@ -91,10 +95,14 @@
                                     </h3>
                                     <div [id]="'pasada-' + invitacion.id" class="accordion-collapse collapse">
                                         <div class="accordion-body">
-                                            @for (documento of invitacion.documentos; track documento.id) {
-                                                <div class="mb-2">
-                                                    <a [href]="documento.url" target="_blank" rel="noopener noreferrer" class="text-decoration-none">
-                                                        <i class="bi bi-file-earmark-pdf me-2"></i>{{ documento.nombre }}
+                                            @for (documento of invitacion.documentos; track documento.id; let primero = $first) {
+                                                <div class="documento-item mb-2" [class.documento-reciente]="primero">
+                                                    <a [href]="documento.url" target="_blank" rel="noopener noreferrer" class="text-decoration-none d-flex align-items-center gap-2">
+                                                        <i class="bi bi-file-earmark-pdf"></i>
+                                                        <span class="flex-grow-1"> {{ documento.nombre }} </span>
+                                                        @if (primero) {
+                                                            <i class="bi bi-clock-history icono-reciente" title="Documento más reciente" aria-label="Documento más reciente"></i>
+                                                        }
                                                     </a>
                                                 </div>
                                             }
@@ -136,10 +144,14 @@
 
                                     <div [id]="'resultado-' + invitacion.id" class="accordion-collapse collapse">
                                         <div class="accordion-body">
-                                            @for (documento of invitacion.documentos; track documento.id) {
-                                                <div class="mb-2">
-                                                    <a [href]="documento.url" target="_blank" rel="noopener noreferrer" class="text-decoration-none">
-                                                        <i class="bi bi-file-earmark-pdf me-2"></i>{{ documento.nombre }}
+                                            @for (documento of invitacion.documentos; track documento.id; let primero = $first) {
+                                                <div class="documento-item mb-2" [class.documento-reciente]="primero">
+                                                    <a [href]="documento.url" target="_blank" rel="noopener noreferrer" class="text-decoration-none d-flex align-items-center gap-2">
+                                                        <i class="bi bi-file-earmark-pdf"></i>
+                                                        <span class="flex-grow-1"> {{ documento.nombre }} </span>
+                                                        @if (primero) {
+                                                            <i class="bi bi-clock-history icono-reciente" title="Documento más reciente" aria-label="Documento más reciente"></i>
+                                                        }
                                                     </a>
                                                 </div>
                                             }
