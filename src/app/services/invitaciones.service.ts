@@ -35,8 +35,7 @@ export class InvitacionesService {
 
   private http = inject(HttpClient);
 
-  private apiUrl =
-    'http://localhost/01-PortalDGME/dgme-api/invitaciones/listar.php';
+  private apiUrl = 'http://localhost/01-PortalDGME/dgme-api/invitaciones/listar.php';
 
   obtenerInvitaciones( tipo: TipoInvitacion): Observable<IRespuestaInvitaciones> {
     return this.http.get<IRespuestaInvitaciones>(
