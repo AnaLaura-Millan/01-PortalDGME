@@ -4,9 +4,13 @@
     header('Content-Type: application/json; charset=utf-8');
 
     // Configuración CORS
-    require_once __DIR__ . '/config/cors.php';
-    
-    require_once __DIR__ . '/../config/database.php';
+    require_once __DIR__ . '/../config/cors.php';
+   
+    // Conexión a MySQL
+    require_once __DIR__ . '/../config/conexion.php';
+
+    //Conexion local
+    //require_once __DIR__ . '/../config/database.php';
     
     // Filtro para saber si son invitaciones vigentes o pasadas
     $tipo = $_GET['tipo'] ?? 'vigentes';

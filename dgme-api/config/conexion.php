@@ -1,9 +1,9 @@
 <?php
 
-    $host = 'localhost';
-    $dbname = 'la_rede';
-    $usuario = 'root';
-    $password = '';
+    $host = '192.168.103.21';
+    $dbname = 'portal_dgme_2026';
+    $usuario = 'S2.k@RzDGME';
+    $password = 'C3r*bRq@DGME';
 
     try {
 

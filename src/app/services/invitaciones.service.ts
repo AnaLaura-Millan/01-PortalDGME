@@ -2,6 +2,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { API_CONFIG } from '../config/api.config';
 
 export type TipoInvitacion = 'vigentes' | 'pasadas' | 'resultados';
 
@@ -34,12 +35,11 @@ export interface IRespuestaInvitaciones {
 export class InvitacionesService {
 
   private http = inject(HttpClient);
-
-  private apiUrl = 'http://localhost/01-PortalDGME/dgme-api/invitaciones/listar.php';
+  private apiUrl = API_CONFIG.baseUrl;
 
   obtenerInvitaciones( tipo: TipoInvitacion): Observable<IRespuestaInvitaciones> {
-    return this.http.get<IRespuestaInvitaciones>(
-      this.apiUrl,
+    //console.log(tipo);
+    return this.http.get<IRespuestaInvitaciones>(`${this.apiUrl}/invitaciones/listar.php`,
       {
         params: { tipo }
       }
