@@ -4,12 +4,13 @@ import { Banner } from '../../shared/banner/banner';
 import { Conoce } from '../conoce/conoce';
 import { Direcciones } from '../direcciones/direcciones';
 import { Contacto } from '../contacto/contacto';
+import { MapaDgme } from '../mapa-dgme/mapa-dgme';
 
 import { inject } from '@angular/core';
 import { Analytics } from '../../services/analytics';
 
 @Component({
-  imports: [Navbar, Banner, Conoce, Direcciones, Contacto],
+  imports: [Navbar, Banner, Conoce, Direcciones, Contacto, MapaDgme],
   selector: 'app-home',
   styleUrl: './home.scss',
   templateUrl: './home.html',

@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { NgClass } from '@angular/common';
+import { CommonModule, NgClass } from '@angular/common';
 
 import { inject } from '@angular/core';
 import { Analytics } from '../../services/analytics';
+import { Router, RouterLink} from '@angular/router';
 
 @Component({
-  imports: [NgClass],
+  imports: [NgClass, RouterLink, CommonModule],
   selector: 'app-navbar',
   standalone: true,
   styleUrl: './navbar.scss',
@@ -14,12 +15,16 @@ import { Analytics } from '../../services/analytics';
 export class Navbar {
 
   private analytics = inject(Analytics);
-
-  menuActivo = 'inicio';
+  private router = inject(Router);
   menuAbierto = false;
 
+  get menuActivo(): string {
+    return this.router.url.split('?')[0].split('#')[0] === '/invitaciones'
+      ? 'invitaciones'
+      : 'inicio';
+  }
+
   activarMenu(menu: string): void {
-    this.menuActivo = menu;
     // En móvil cerramos el menú después de seleccionar.
     this.menuAbierto = false;
   }

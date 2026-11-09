@@ -5,6 +5,7 @@ import { InvitacionesService, TipoInvitacion, IInvitacionApi } from '../../servi
 import { Navbar } from '../../shared/navbar/navbar';
 import { Banner } from '../../shared/banner/banner';
 import { IInvitacion } from '../../interface/invitacion.model';
+import { Analytics } from '../../services/analytics';
 
 type TipoPestana = 'vigentes' | 'pasadas' | 'resultados';
 
@@ -18,6 +19,7 @@ type TipoPestana = 'vigentes' | 'pasadas' | 'resultados';
 export class Invitaciones  implements OnInit {
 
   private invitacionesService = inject(InvitacionesService);
+  private analytics = inject(Analytics);
 
   //pestaña activa
   pestanaActiva = signal<TipoPestana>('vigentes');
@@ -83,6 +85,11 @@ export class Invitaciones  implements OnInit {
       resultados: this.invitacionesService.obtenerInvitaciones('resultados')
     }).subscribe({
       next: (respuesta) => {
+
+        // console.log('RESPUESTA VIGENTES:', respuesta.vigentes);
+        // console.log('RESPUESTA PASADAS:', respuesta.pasadas);
+        // console.log('RESPUESTA RESULTADOS:', respuesta.resultados);
+
         const invitaciones: IInvitacion[] = [
           ...this.transformarInvitaciones(respuesta.vigentes.datos, 'vigentes'),
           ...this.transformarInvitaciones(respuesta.pasadas.datos, 'pasadas'),
@@ -112,5 +119,10 @@ export class Invitaciones  implements OnInit {
         url: documento.url
       }))
     }));
+  }
+
+  // Registrar interacciones de la sección Invitaciones
+  registrarInteraccion(seccion: string, elemento: string): void {
+    this.analytics.registrarClick(seccion, elemento);
   }
 }

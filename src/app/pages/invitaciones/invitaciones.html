@@ -15,17 +15,17 @@
                 <ul class="nav nav-tabs nav-fill flex-column flex-sm-row mb-4">
                     <!-- VIGENTES -->
                     <li class="nav-item">
-                        <button type="button" class="nav-link w-100" [class.active]="pestanaActiva() === 'vigentes'" (click)="cambiarPestana('vigentes')"> Invitaciones Vigentes </button>
+                        <button type="button" class="nav-link w-100" [class.active]="pestanaActiva() === 'vigentes'" (click)="cambiarPestana('vigentes'); registrarInteraccion('invitaciones', 'Vigentes')"> Invitaciones Vigentes </button>
                     </li>
 
                     <!-- PASADAS -->
                     <li class="nav-item">
-                        <button type="button" class="nav-link w-100" [class.active]="pestanaActiva() === 'pasadas'" (click)="cambiarPestana('pasadas')"> Invitaciones Pasadas </button>
+                        <button type="button" class="nav-link w-100" [class.active]="pestanaActiva() === 'pasadas'" (click)="cambiarPestana('pasadas'); registrarInteraccion('invitaciones', 'Pasadas')"> Invitaciones Pasadas </button>
                     </li>
 
                     <!-- RESULTADOS -->
                     <li class="nav-item">
-                        <button type="button" class="nav-link w-100" [class.active]="pestanaActiva() === 'resultados'" (click)="cambiarPestana('resultados')"> Resultados </button>
+                        <button type="button" class="nav-link w-100" [class.active]="pestanaActiva() === 'resultados'" (click)="cambiarPestana('resultados'); registrarInteraccion('invitaciones', 'Resultados')"> Resultados </button>
                     </li>
                 </ul>
 
@@ -34,21 +34,21 @@
                 <!-- INVITACIONES VIGENTES -->
                 @if (pestanaActiva() === 'vigentes') {
                     <section class="seccion-invitaciones vigentes">
-                        <div class="accordion">
+                        <div class="accordion" id="accordionVigentes">
                             @for (invitacion of invitacionesVigentes(); track invitacion.id) {
                                 <div class="accordion-item mb-3">
                                     <h3 class="accordion-header">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#vigente-' + invitacion.id" aria-expanded="false" [attr.aria-controls]="'vigente-' + invitacion.id">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#vigente-' + invitacion.id" aria-expanded="false" [attr.aria-controls]="'vigente-' + invitacion.id" (click)="registrarInteraccion('invitaciones', invitacion.titulo)">
                                             <span class="icono-circular me-3"><i class="bi bi-megaphone"></i></span>
                                             <span class="titulo-tarjeta"> {{ invitacion.titulo }} </span>
                                         </button>
                                     </h3>
 
-                                    <div [id]="'vigente-' + invitacion.id" class="accordion-collapse collapse">
+                                    <div [id]="'vigente-' + invitacion.id" class="accordion-collapse collapse" data-bs-parent="#accordionVigentes">
                                         <div class="accordion-body">
                                             @for (documento of invitacion.documentos; track documento.id; let primero = $first) {
                                                 <div class="documento-item mb-2" [class.documento-reciente]="primero">
-                                                    <a [href]="documento.url" target="_blank" rel="noopener noreferrer" class="text-decoration-none d-flex align-items-center gap-2">
+                                                    <a [href]="documento.url" target="_blank" rel="noopener noreferrer" class="text-decoration-none d-flex align-items-center gap-2" (click)="registrarInteraccion('documentos_pdf', documento.nombre)">
                                                         <i class="bi bi-file-earmark-pdf"></i>
                                                         <span class="flex-grow-1"> {{ documento.nombre }} </span>
                                                         @if (primero) {
@@ -84,20 +84,20 @@
                             </div>
                         </div>
 
-                        <div class="accordion">
+                        <div class="accordion" id="accordionPasadas">
                             @for (invitacion of invitacionesPasadasFiltradas(); track invitacion.id) {
                                 <div class="accordion-item mb-3">
                                     <h3 class="accordion-header">
-                                        <button  class="accordion-button collapsed" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#pasada-' + invitacion.id" aria-expanded="false" [attr.aria-controls]="'pasada-' + invitacion.id">
+                                        <button  class="accordion-button collapsed" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#pasada-' + invitacion.id" aria-expanded="false" [attr.aria-controls]="'pasada-' + invitacion.id" (click)="registrarInteraccion('invitaciones', invitacion.titulo)">
                                             <span class="icono-circular me-3"><i class="bi bi-eye"></i></span>
                                             <span class="titulo-tarjeta"> {{ invitacion.titulo }} </span>
                                         </button>
                                     </h3>
-                                    <div [id]="'pasada-' + invitacion.id" class="accordion-collapse collapse">
+                                    <div [id]="'pasada-' + invitacion.id" class="accordion-collapse collapse" data-bs-parent="#accordionPasadas">
                                         <div class="accordion-body">
                                             @for (documento of invitacion.documentos; track documento.id; let primero = $first) {
                                                 <div class="documento-item mb-2" [class.documento-reciente]="primero">
-                                                    <a [href]="documento.url" target="_blank" rel="noopener noreferrer" class="text-decoration-none d-flex align-items-center gap-2">
+                                                    <a [href]="documento.url" target="_blank" rel="noopener noreferrer" class="text-decoration-none d-flex align-items-center gap-2" (click)="registrarInteraccion('documentos_pdf', documento.nombre)">
                                                         <i class="bi bi-file-earmark-pdf"></i>
                                                         <span class="flex-grow-1"> {{ documento.nombre }} </span>
                                                         @if (primero) {
@@ -132,21 +132,21 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="accordion">
+                        <div class="accordion" id="accordionResultados">
                             @for (invitacion of resultadosFiltrados(); track invitacion.id) {
                                 <div class="accordion-item mb-3">
                                     <h3 class="accordion-header">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#resultado-' + invitacion.id" aria-expanded="false" [attr.aria-controls]="'resultado-' + invitacion.id">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#resultado-' + invitacion.id" aria-expanded="false" [attr.aria-controls]="'resultado-' + invitacion.id" (click)="registrarInteraccion('invitaciones', invitacion.titulo)">
                                             <span class="icono-circular me-3"><i class="bi bi-eye"></i></span>
                                             <span class="titulo-tarjeta"> {{ invitacion.titulo }} </span>
                                         </button>
                                     </h3>
 
-                                    <div [id]="'resultado-' + invitacion.id" class="accordion-collapse collapse">
+                                    <div [id]="'resultado-' + invitacion.id" class="accordion-collapse collapse" data-bs-parent="#accordionResultados">
                                         <div class="accordion-body">
                                             @for (documento of invitacion.documentos; track documento.id; let primero = $first) {
                                                 <div class="documento-item mb-2" [class.documento-reciente]="primero">
-                                                    <a [href]="documento.url" target="_blank" rel="noopener noreferrer" class="text-decoration-none d-flex align-items-center gap-2">
+                                                    <a [href]="documento.url" target="_blank" rel="noopener noreferrer" class="text-decoration-none d-flex align-items-center gap-2" (click)="registrarInteraccion('documentos_pdf', documento.nombre)">
                                                         <i class="bi bi-file-earmark-pdf"></i>
                                                         <span class="flex-grow-1"> {{ documento.nombre }} </span>
                                                         @if (primero) {
