@@ -5,12 +5,13 @@ import { Conoce } from '../conoce/conoce';
 import { Direcciones } from '../direcciones/direcciones';
 import { Contacto } from '../contacto/contacto';
 import { MapaDgme } from '../mapa-dgme/mapa-dgme';
+import { CardSlider } from '../../shared/card-slider/card-slider';
 
 import { inject } from '@angular/core';
 import { Analytics } from '../../services/analytics';
 
 @Component({
-  imports: [Navbar, Banner, Conoce, Direcciones, Contacto, MapaDgme],
+  imports: [Navbar, Banner, Conoce, Direcciones, Contacto, CardSlider, MapaDgme],
   selector: 'app-home',
   styleUrl: './home.scss',
   templateUrl: './home.html',

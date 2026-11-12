@@ -1,0 +1,307 @@
+
+<!-- =========================================
+     MODAL DGME
+     MURALES | CREATIVOS | CHAMAKES
+========================================= -->
+
+<div
+  #modalElemento
+  id="modalMapaDgme"
+  class="modal fade modal-dgme"
+  tabindex="-1"
+  aria-labelledby="tituloModalMapaDgme"
+  aria-hidden="true">
+
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+
+    <div class="modal-content">
+
+      <!-- =====================================
+           ENCABEZADO GENERAL
+      ====================================== -->
+
+      <div class="modal-header">
+
+        <div class="encabezado-izquierdo">
+
+          <h5 class="modal-title" id="tituloModalMapaDgme">
+            {{ estado }}
+          </h5>
+
+          <span class="contador-registros">
+            ({{ indiceRegistro + 1 }}/{{ registros.length }})
+          </span>
+
+        </div>
+
+        <div class="controles-modal">
+
+          <button
+            type="button"
+            class="btn btn-navegacion-dgme"
+            [disabled]="indiceRegistro === 0"
+            (click)="anteriorRegistro()"
+            aria-label="Anterior">
+            &#10094;
+          </button>
+
+          <button
+            type="button"
+            class="btn btn-navegacion-dgme"
+            [disabled]="indiceRegistro === registros.length - 1"
+            (click)="siguienteRegistro()"
+            aria-label="Siguiente">
+            &#10095;
+          </button>
+
+          <button
+            type="button"
+            class="btn-close"
+            aria-label="Cerrar"
+            (click)="cerrar()">
+          </button>
+
+        </div>
+
+      </div>
+
+      <!-- =====================================
+           CONTENIDO DINÁMICO
+      ====================================== -->
+
+      <div
+        class="modal-body"
+        [class.cuerpo-murales]="seccion === 'murales'"
+        [class.cuerpo-creativos]="seccion === 'creativos'"
+        [class.cuerpo-chamakes]="seccion === 'chamakes'">
+
+        <!-- =================================
+             MURALES
+        ================================== -->
+
+        @if (seccion === 'murales' && registroActual) {
+
+          <div class="contenido-murales">
+
+            @if (imagenRegistro) {
+              <div class="contenedor-imagen-mural">
+
+                <img
+                  [src]="imagenRegistro"
+                  [alt]="registroActual.mural"
+                  class="imagen-mural">
+
+              </div>
+            }
+
+            <div class="informacion-murales">
+
+              <h5 class="titulo-mural">
+                {{ registroActual.mural }}
+              </h5>
+
+              <p>
+                <strong>Artista(s) / Autor:</strong>
+                {{ registroActual.autor }}
+              </p>
+
+              <p>
+                <strong>Ubicación / Municipio:</strong>
+                {{ registroActual.municipio }}
+              </p>
+
+              <p>
+                <strong>Escuela / Sede:</strong>
+                {{ registroActual.escuela }}
+              </p>
+
+              @if (registroActual.enlace) {
+                <a
+                  [href]="registroActual.enlace"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="btn btn-enlace-mural">
+
+                  Ver Registro en Video
+
+                </a>
+              }
+
+            </div>
+
+          </div>
+
+        }
+
+        <!-- =================================
+             CREATIVOS
+        ================================== -->
+
+        @if (seccion === 'creativos' && registroActual) {
+
+          <div class="contenido-creativos">
+
+            <!-- BUSCADOR -->
+
+            <div class="input-group buscador-creativos">
+
+              <span class="input-group-text">
+                🔍
+              </span>
+
+              <input
+                type="search"
+                class="form-control"
+                placeholder="Buscar por creativo, municipio o título..."
+                aria-label="Buscar creativos"
+                [value]="busquedaCreativos()"
+                (input)="actualizarBusqueda($any($event.target).value)">
+
+            </div>
+
+            <!-- DATOS DEL CREATIVO -->
+
+            <h5 class="nombre-creativo">
+              {{ registroActual.creativoName }}
+            </h5>
+
+            <p class="municipio-creativo">
+              <strong>Ubicación / Municipio:</strong>
+              {{ registroActual.municipio }}
+            </p>
+
+            <hr class="separador-creativos">
+
+            <p class="descripcion-creativos">
+              Selecciona un ciclo para ver los trabajos del creativo:
+            </p>
+
+            <!-- CICLOS ESCOLARES -->
+
+            <div class="ciclos-creativos">
+
+              @for (item of ciclosCreativo; track $index) {
+
+                <button
+                  type="button"
+                  class="btn btn-ciclo-creativo"
+                  [class.activo]="indiceCiclo === $index"
+                  (click)="seleccionarCiclo($index)">
+
+                  {{ item.ciclo }}
+
+                </button>
+
+              }
+
+            </div>
+
+            <!-- DOCUMENTOS -->
+
+            @if (cicloActual) {
+
+              <div class="row g-2 documentos-creativos">
+
+                @for (documento of cicloActual.documentos; track $index) {
+
+                  <div class="col-12 col-md-6">
+
+                    <a
+                      class="btn btn-pdf-creativo"
+                      [href]="rutaDocumento(documento.url)"
+                      target="_blank"
+                      rel="noopener noreferrer">
+
+                      <span>
+                        📄 {{ documento.name }}
+                      </span>
+
+                    </a>
+
+                  </div>
+
+                } @empty {
+
+                  <div class="col-12 text-center text-muted">
+                    No hay documentos disponibles.
+                  </div>
+
+                }
+
+              </div>
+
+            } @else {
+
+              <p class="text-center text-muted">
+                Este creativo no tiene ciclos escolares registrados.
+              </p>
+
+            }
+
+          </div>
+
+        }
+
+        <!-- =================================
+             CHAMAKES
+        ================================== -->
+
+        @if (seccion === 'chamakes' && registroActual) {
+
+          <div class="contenido-chamakes">
+
+            <!-- IMAGEN -->
+
+            @if (registroActual.img) {
+
+              <div class="contenedor-imagen-chamakes">
+
+                <img
+                  [src]="'/assets/mapa-dgme/' + registroActual.img"
+                  [alt]="registroActual.name"
+                  class="imagen-chamakes">
+
+              </div>
+
+            }
+
+            <!-- DATOS DEL COLABORADOR -->
+
+            <div class="informacion-chamakes">
+
+              <h5 class="nombre-chamakes">
+                {{ registroActual.name }}
+              </h5>
+
+              <p class="municipio-chamakes">
+                <strong>Ubicación / Municipio:</strong>
+                {{ registroActual.municipio }}
+              </p>
+
+              @if (registroActual.enlace) {
+
+                <a
+                  [href]="registroActual.enlace"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="btn btn-perfil-chamakes">
+
+                  Ver tarjeta de colaborador
+
+                </a>
+
+              }
+
+            </div>
+
+          </div>
+
+        }
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

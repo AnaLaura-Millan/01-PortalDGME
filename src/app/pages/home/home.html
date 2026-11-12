@@ -7,13 +7,22 @@
   <app-navbar class="py-4"></app-navbar>
 
   <main>
+    
     <app-conoce></app-conoce>
 
-    <main class="container py-5">
+    <!-- SECCIÓN NOVEDADES -->
+    <main class="container">
+      <div class="panel-invitaciones">
+        <app-card-slider></app-card-slider>
+      </div>
+    </main>
+
+    <!-- SECCIÓN DEL MAPA -->
+    <!-- <main class="container py-5">
       <div class="panel-invitaciones">
         <app-mapa-dgme></app-mapa-dgme>
       </div>
-    </main>
+    </main> -->
 
     <section class="container py-5">
       <a href="https://bdchamakes.sep.gob.mx/dgme.html" target="_blank" rel="noopener noreferrer" class="banner-ltg d-block" aria-label="Consulta tus Libros de Texto Gratuitos" (click)="registrarClickLibros()">

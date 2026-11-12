@@ -1,1 +1,52 @@
-<p>mapa-dgme works!</p>
+<div class="container">
+  <!--  MAPA INTERACTIVO -->
+  <section>
+    <div class="encabezado-dgme text-center mb-4 ">
+      <h1 class="encabezado-titulo"> Actividades y Proyectos Comunales </h1>
+      <p class="encabezado-subtitulo mb-4 mt-3"> Dirección General de Materiales Educativos </p>
+    </div>
+
+    <!-- BOTONES DE SECCIONES -->
+    <div class="d-flex flex-wrap justify-content-center gap-3 mb-4">
+
+      <button type="button" class="btn btn-seccion-dgme" [class.activo]="seccionActual === 'murales'" [attr.aria-pressed]="seccionActual === 'murales'" (click)="cambiarSeccion('murales')"> Murales </button>
+
+      <button type="button" class="btn btn-seccion-dgme" [class.activo]="seccionActual === 'creativos'" [attr.aria-pressed]="seccionActual === 'creativos'" (click)="cambiarSeccion('creativos')"> Creativos </button>
+
+      <button type="button" class="btn btn-seccion-dgme" [class.activo]="seccionActual === 'chamakes'" [attr.aria-pressed]="seccionActual === 'chamakes'" (click)="cambiarSeccion('chamakes')"> Chamakes </button>
+    </div>
+
+    <!-- MAPA SVG -->
+    <div class="row justify-content-center">
+      <div class="col-12 col-lg-10">
+        @if (cargando) {
+          <div class="text-center my-4" role="status">
+            <div class="spinner-border text-secondary" aria-hidden="true"></div>
+              <p class="mt-2"> Cargando información del mapa... </p>
+          </div>
+        }
+
+        @if (errorCarga) {
+          <div class="alert alert-danger text-center my-4" role="alert"> No fue posible cargar la información del mapa. Verifica la conexión con el servidor. </div>
+        }
+
+        <app-mapa-svg (estadoSeleccionado)="seleccionarEstadoSvg($event)"></app-mapa-svg>
+      </div>
+    </div>
+
+    <!-- AVISO PARA ESTADOS SIN REGISTROS -->
+    @if (estadoActual && totalRegistros === 0) {
+      <div class="alert alert-warning text-center mt-4" role="status">
+        <h5 class="mb-2"> {{ estadoActual }} </h5>
+        <p class="mb-0">
+          Por el momento no hay información disponible
+          para esta entidad en la sección de
+          <strong>{{ seccionActual | titlecase }}</strong>.
+        </p>
+      </div>
+    }
+
+    <!-- ÚNICO MODAL COMPARTIDO -->
+    <app-modal-dgme [seccion]="seccionActual" [estado]="estadoActual" [registros]="registrosSeleccionados"></app-modal-dgme>
+  </section>
+</div>

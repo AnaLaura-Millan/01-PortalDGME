@@ -1,0 +1,43 @@
+
+<section class="container py-3 card-slider-dgme">
+
+  <!-- ENCABEZADO GENERAL -->
+  <div class="text-center mb-5 encabezado-slider">
+    <h2 class="fw-bold mb-2"> {{ titulo }} </h2>
+        <p class="mb-4">  Conoce nuestras actividades y materiales educativos.</p>
+    <div class="linea-decorativa mx-auto mb-3"></div>
+  </div>
+
+  <div class="position-relative">
+    <!-- FLECHA ANTERIOR -->
+    <button type="button" class="btn btn-slider btn-anterior" aria-label="Tarjeta anterior" [disabled]="!puedeAnterior()" (click)="desplazar(-1)"> &#10094; </button>
+
+    <!-- CONTENEDOR DEL CARRUSEL -->
+    <div #contenedorSlider class="slider-contenedor d-flex gap-3 overflow-auto px-2 pt-2 pb-4" (scroll)="actualizarFlechas()">
+      @for (tarjeta of tarjetas(); track tarjeta.id) {
+        <div class="slider-item flex-shrink-0">
+          <div class="card h-100 tarjeta-slider">
+            
+            <!-- ENCABEZADO DE TARJETA -->
+            <div class="card-header encabezado-tarjeta border-0"></div>
+
+            <!-- IMAGEN -->
+            <img  [src]="tarjeta.imagen" class="card-img-top imagen-tarjeta" loading="lazy">
+
+            <!-- DESCRIPCIÓN -->
+            <div class="card-body d-flex flex-column">
+              @if (obtenerUrl(tarjeta); as enlace) {
+                <a [href]="enlace" target="_blank" rel="noopener noreferrer" class="stretched-link enlace-tarjeta text-decoration-none fw-semibold" (click)="registrarInteraccion(tarjeta.titulo)">
+                  {{ tarjeta.tipo === 'pdf' ? 'Consultar documento' : 'Ver publicación' }}
+                </a>
+              }
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+
+    <!-- FLECHA SIGUIENTE -->
+    <button type="button" class="btn btn-slider btn-siguiente" aria-label="Siguiente tarjeta" [disabled]="!puedeSiguiente()" (click)="desplazar(1)"> &#10095; </button>
+  </div>
+</section>

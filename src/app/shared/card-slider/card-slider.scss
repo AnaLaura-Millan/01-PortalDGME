@@ -1,0 +1,161 @@
+:host {
+  display: block;
+}
+
+/* ENCABEZADO GENERAL */
+.encabezado-slider {
+  h2 {
+    color: #00594c;
+    font-weight: 700;
+  }
+
+  p {
+    color: #826330;
+    font-size: 1rem;
+  }
+}
+
+.linea-decorativa {
+  width: 100%;
+  height: 4px;
+  background: #b08a45;
+  border-radius: 10px;
+}
+
+/* CONTENEDOR DEL SLIDER  */
+.slider-contenedor {
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/*  RESPONSIVIDAD  */
+
+/* CELULAR: 1 TARJETA */
+.slider-item {
+  scroll-snap-align: start;
+  width: 100%;
+  min-width: 0;
+}
+
+/* TABLET: 2 TARJETAS */
+@media (min-width: 768px) {
+  .slider-item {
+    width: calc((100% - 1rem) / 2);
+  }
+}
+
+/* ESCRITORIO: 3 TARJETAS */
+@media (min-width: 992px) {
+  .slider-item {
+    width: calc((100% - 2rem) / 3);
+  }
+}
+
+/*  DISEÑO DE TARJETAS */
+.tarjeta-slider {
+  position: relative;
+  border: none;
+  border-radius: 15px;
+  overflow: hidden;
+  background-color: #fffbf5;
+
+  /* SOMBRA SIMILAR AL MENÚ DEL PORTAL */
+filter: drop-shadow(10px 11px rgba(0, 0, 0, 0.08));
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+
+  &:has(.stretched-link) {
+    cursor: pointer;
+  }
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow:
+      6px 9px 0 rgba(176, 138, 69, 0.85),
+      0 12px 22px rgba(0, 0, 0, 0.15);
+  }
+}
+
+/*  ENCABEZADO DE TARJETAS */
+.encabezado-tarjeta {
+  background-color: #9b2247;
+  padding: 16px 18px;
+
+  .card-title {
+    color: #fff;
+    font-size: 1.05rem;
+    line-height: 1.4;
+  }
+}
+
+/* IMAGEN */
+.imagen-tarjeta {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+/* DESCRIPCIÓN Y ENLACES */
+.card-body {
+  padding: 20px 18px;
+
+  .card-text {
+    color: #5b554e;
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+}
+
+.enlace-tarjeta {
+  color: #9b2247;
+  font-size: 0.95rem;
+
+  &:hover {
+    color: #611232;
+  }
+}
+
+/*  FLECHAS */
+.btn-slider {
+  position: absolute;
+  top: 45%;
+  z-index: 2;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 2px solid #fff3df;
+  background-color: #b88f31 ;
+  color: #fff;
+  box-shadow:
+    3px 4px 0 rgba(176, 138, 69, 0.8),
+    0 4px 10px rgba(0, 0, 0, 0.15);
+  transition: background-color 0.2s ease;
+
+  &:hover:not(:disabled) {
+    background-color: #f0dcae;
+    color: #fff;
+  }
+
+  &:disabled {
+    opacity: 0.3;
+    cursor: default;
+  }
+}
+
+.btn-anterior {
+  left: -15px;
+}
+
+.btn-siguiente {
+  right: -15px;
+}

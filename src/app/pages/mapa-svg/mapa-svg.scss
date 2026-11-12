@@ -1,0 +1,272 @@
+/* Estado normal */
+.mapa-container {
+  position: relative;
+}
+
+.mapa-container .estado {
+  stroke: #ffffff;
+  stroke-width: 1;
+  cursor: pointer;
+
+  // Estado normal: más suave
+  opacity: 0.65;
+  filter: saturate(0.75) brightness(1.08);
+
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease,
+    filter 0.3s ease,
+    stroke-width 0.3s ease;
+
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.mapa-container .estado:hover {
+  // Recupera completamente el color
+  opacity: 1;
+
+  // Hace el color más intenso
+  filter:
+    saturate(1.8)
+    brightness(0.95)
+    contrast(1.08)
+    drop-shadow(0 3px 3px rgba(0, 0, 0, 0.25))
+    drop-shadow(0 7px 8px rgba(0, 0, 0, 0.18));
+
+  // Levanta ligeramente el estado
+  transform: scale(1.06);
+
+  stroke: #ffffff;
+  stroke-width: 2.5;
+}
+
+.cls-1-maps {
+                
+  fill: #95a968;
+  
+}
+
+.cls-2-maps {
+  fill: #d02041;
+}
+
+.cls-3-maps {
+  fill: #ebd7a6;
+}
+
+.cls-4-maps {
+  fill: #4d8a8e;
+}
+
+.cls-6-maps {
+  fill: #3f6672;
+}
+
+.cls-7-maps {
+  fill: #858598;
+}
+
+.cls-8-maps {
+  fill: #7a2358;
+}
+
+.cls-10-maps {
+  fill: #e782a0;
+}
+
+.cls-14-maps {
+  fill: #007049;
+}
+
+.cls-16-maps {
+  fill: #538dae;
+}
+
+.cls-18-maps {
+  fill: #d77450;
+}
+
+.cls-19-maps {
+  fill: #e289a4;
+}
+
+.cls-20-maps {
+  fill: #e8b863;
+}
+
+.cls-21-maps {
+  fill: #837d48;
+}
+
+.cls-22-maps {
+  fill: #7276a2;
+}
+
+.cls-23-maps {
+  fill: #5aa588;
+}
+
+.cls-24-maps {
+  fill: #054862;
+}
+
+.cls-25-maps {
+  fill: #ce4588;
+}
+
+.cls-26-maps {
+  fill: #b59e63;
+}
+
+.cls-27-maps {
+  fill: #dbacc3;
+}
+
+.cls-28-maps {
+  fill: #d6a485;
+}
+
+.cls-29-maps {
+  fill: #965b57;
+}
+
+.cls-30-maps {
+  fill: #7a2358;
+}
+
+.cls-31-maps {
+  fill: #add0e4;
+}
+
+.cls-32-maps {
+  fill: #cc7c94;
+}
+
+.cls-33-maps {
+  fill: #ffa687;
+}
+
+.cls-34-maps {
+  fill: #a7cdd1;
+}
+
+.cls-35-maps {
+  fill: #c2c695;
+}
+
+
+// globo
+.mapa-container {
+  position: relative;
+}
+
+.estado-info {
+  position: absolute;
+  width: max-content;
+  max-width: 200px;
+  padding: 10px 15px;
+  background: rgba(255, 255, 255, 0.96);
+  border-left: 4px solid #9b2247;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.estado-info h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin: 0;
+  color: #611232;
+}
+
+/* RESPONSIVO MÓVIL */
+@media (max-width: 767.98px) {
+  .estado-info {
+    padding: 10px 38px 10px 14px;
+    min-width: 0;
+    max-width: 75%;
+  }
+
+  .estado-info h3 {
+    font-size: 0.9rem;
+  }
+}
+
+.estado-info p {
+  margin-bottom: 0.4rem;
+  font-size: clamp(0.8rem, 1.3vw, 0.95rem);
+  line-height: 1.4;
+  color: #333;
+}
+
+.estado-info strong {
+  color: #611232;
+  margin-right: 0.3rem;
+}
+
+.estado-info-cerrar {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: #611232;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.estado-info-cerrar:hover {
+  background: #611232;
+  color: #ffffff;
+  transform: scale(1.08);
+}
+
+@keyframes mostrarEstado {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+@media (max-width: 767.98px) {
+
+  .modal-estado .modal-header {
+    padding: 15px;
+  }
+
+  .modal-estado .modal-body {
+    padding: 15px;
+  }
+
+  .modal-estado .modal-title {
+    font-size: 1.2rem;
+  }
+
+  .dato-estado {
+    padding: 12px;
+  }
+
+}
+/* Ajuste responsivo del SVG en su nuevo componente */
+.mapa-container svg { display: block; width: 100%; height: auto; }
